@@ -5,7 +5,7 @@ const replay = document.getElementById("replay");
 let isGameOver = false;
 const players = ["O", "X"];
 let activePlayer = 0;
-const field = ["", "", "", "X", "X", "X", "", "", ""];
+const field = ["", "", "", "", "", "", "", "", ""];
 const winnersTable = [
   [0, 1, 2],
   [3, 4, 5],
@@ -60,7 +60,13 @@ function checkWinner() {
     if (isCellsEqual) {
       showResult(field[el[0]] + " win");
       isGameOver = true;
+      return;
     }
+  }
+
+  if (field.filter((item) => item === "").length === 0) {
+    showResult("tie");
+    isGameOver = true;
   }
 }
 
