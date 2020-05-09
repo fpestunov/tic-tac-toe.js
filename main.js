@@ -2,6 +2,7 @@ const board = document.getElementById("board");
 const result = document.getElementById("result");
 const replay = document.getElementById("replay");
 
+let isGameOver = false;
 const players = ["O", "X"];
 let activePlayer = 0;
 const field = ["", "", "", "X", "X", "X", "", "", ""];
@@ -25,6 +26,10 @@ replay.addEventListener("click", function () {
 });
 
 board.addEventListener("click", function (event) {
+  if (isGameOver) {
+    return;
+  }
+
   const targetData = event.target.dataset;
   if (targetData.cell && field[targetData.cell] === "") {
     console.log("click ", targetData.cell);
@@ -54,6 +59,7 @@ function checkWinner() {
       field[el[0]] !== "";
     if (isCellsEqual) {
       showResult(field[el[0]] + " win");
+      isGameOver = true;
     }
   }
 }
