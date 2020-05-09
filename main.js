@@ -2,6 +2,8 @@ const board = document.getElementById("board");
 const result = document.getElementById("result");
 const replay = document.getElementById("replay");
 
+const players = ["O", "X"];
+let activePlayer = 0;
 const field = ["", "X", "", "O", "", "", "", "", ""];
 
 function showResult(msg) {
@@ -10,6 +12,16 @@ function showResult(msg) {
 
 replay.addEventListener("click", function () {
   showResult("");
+});
+
+board.addEventListener("click", function (event) {
+  const targetData = event.target.dataset;
+  if (targetData.cell && field[targetData.cell] === "") {
+    console.log("click ", targetData.cell);
+    field[targetData.cell] = players[activePlayer];
+    activePlayer = activePlayer ? 0 : 1;
+    renderBoard();
+  }
 });
 
 function renderBoard() {
