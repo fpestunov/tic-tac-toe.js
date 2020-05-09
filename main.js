@@ -22,8 +22,17 @@ function showResult(msg) {
 }
 
 replay.addEventListener("click", function () {
+  isGameOver = false;
   showResult("");
+  resetField();
+  renderBoard();
 });
+
+function resetField() {
+  for (let index = 0; index < field.length; index++) {
+    field[index] = "";
+  }
+}
 
 board.addEventListener("click", function (event) {
   if (isGameOver) {
@@ -32,7 +41,6 @@ board.addEventListener("click", function (event) {
 
   const targetData = event.target.dataset;
   if (targetData.cell && field[targetData.cell] === "") {
-    console.log("click ", targetData.cell);
     field[targetData.cell] = players[activePlayer];
     activePlayer = activePlayer ? 0 : 1;
     renderBoard();
